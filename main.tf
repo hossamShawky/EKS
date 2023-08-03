@@ -12,3 +12,14 @@ module "Public-Subnet" {
 
   depends_on = [module.VPC]
 }
+
+
+#Private-Subnet
+module "Private-Subnet" {
+  source             = "./private_subnets"
+  vpc_id             = module.VPC.vpc_id
+  availability_zones = var.availability_zones
+  private_cidrs       = var.private_cidrs
+
+  depends_on = [module.VPC,module.Public-Subnet]
+}
