@@ -7,3 +7,11 @@ variable "private_cidrs" {
 variable "availability_zones" {
   type = list(string)
 }
+
+variable "destination" {
+  type=string
+  default="0.0.0.0/0"
+}
+variable "public_subnet" {
+  type=string
+}

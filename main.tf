@@ -18,7 +18,7 @@ module "Private-Subnet" {
   vpc_id             = module.VPC.vpc_id
   availability_zones = var.availability_zones
   private_cidrs      = var.private_cidrs
-
+  public_subnet = module.Public-Subnet.public_subnets_ids[0]
   depends_on = [module.VPC, module.Public-Subnet]
 }
 #Security Groups
