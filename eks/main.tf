@@ -2,12 +2,10 @@
 data "aws_iam_policy_document" "assume_role" {
   statement {
     effect = "Allow"
-
     principals {
       type        = "Service"
       identifiers = ["eks.amazonaws.com"]
     }
-
     actions = ["sts:AssumeRole"]
   }
 }
@@ -28,10 +26,10 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSVPCResourceController" {
 }
 
 # EKS
-resource "aws_eks_cluster" "fastapi-cluster" {
-  name     = "tf-fastapi-cluster"
+resource "aws_eks_cluster" "eks-cluster" {
+  name     = "eks-cluster"
   role_arn = aws_iam_role.eks-role.arn
-  version  = "1.23"
+  version  = "1.27"
   vpc_config {
     subnet_ids              = var.private_subnets_ids
     security_group_ids      = [var.eks_sg]
@@ -47,12 +45,9 @@ resource "aws_eks_cluster" "fastapi-cluster" {
     aws_iam_role_policy_attachment.AmazonEKSVPCResourceController,
   ]
 }
-
-
 # Node Group IAM Roles
 resource "aws_iam_role" "nodes-iam-role" {
   name = "eks-node-group-nodes-iam-role"
-
   assume_role_policy = jsonencode({
     Statement = [{
       Action = "sts:AssumeRole"
@@ -79,11 +74,9 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.nodes-iam-role.name
 }
-
-
 # Node Group
 resource "aws_eks_node_group" "eks-node-group" {
-  cluster_name    = aws_eks_cluster.fastapi-cluster.name
+  cluster_name    = aws_eks_cluster.eks-cluster.name
   node_group_name = "eks-node-group"
   node_role_arn   = aws_iam_role.nodes-iam-role.arn
   subnet_ids      = var.private_subnets_ids

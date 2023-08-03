@@ -35,3 +35,20 @@ module "EKS" {
   eks_sg              = module.Security-Group.eks_SG_id
   depends_on          = [module.Security-Group]
 }
+
+module "Datasource_AMI" {
+  source = "./datasource_ami/"
+  filter_names    = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  filter_virtuals = ["hvm"]
+  owners          = ["099720109477"] # Canonical
+
+}
+
+module "EC2-Control" {
+  source                    = "./ec2"
+  ami_id                    = module.Datasource_AMI.ami_id
+  public_subnets_ids        = module.Public-Subnet.public_subnets_ids
+  securit_group_ids         = module.Security-Group.public_SG
+  instance_type             = "t2.micro"
+  depends_on                = [module.EKS]
+}

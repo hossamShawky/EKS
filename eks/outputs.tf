@@ -1,8 +1,8 @@
 
-# output "endpoint" {
-#   value = aws_eks_cluster.fastapi-cluster.endpoint
-# }
+output "endpoint" {
+  value = aws_eks_cluster.eks-cluster.endpoint
+}
 
-# output "kubeconfig-certificate-authority-data" {
-#   value = aws_eks_cluster.fastapi-cluster.certificate_authority[0].data
-# }
+output "kubeconfig-certificate-authority-data" {
+  value = aws_eks_cluster.eks-cluster.certificate_authority[0].data
+}
