@@ -15,6 +15,7 @@ resource "aws_instance" "EC2-Control" {
       "sudo apt update -y",
       "sudo apt install kubectl -y",
       "sudo apt install awscli -y",
+      "cp -r ./scripts/* ~/."
            ]
   }
   connection {

@@ -50,5 +50,5 @@ module "EC2-Control" {
   public_subnets_ids        = module.Public-Subnet.public_subnets_ids
   securit_group_ids         = module.Security-Group.public_SG
   instance_type             = "t2.micro"
-  depends_on                = [module.EKS]
+  depends_on                = [module.Security-Group]
 }

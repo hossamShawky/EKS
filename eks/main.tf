@@ -34,7 +34,7 @@ resource "aws_eks_cluster" "eks-cluster" {
     subnet_ids              = var.private_subnets_ids
     security_group_ids      = [var.eks_sg]
     endpoint_private_access = true
-    endpoint_public_access  = false
+    endpoint_public_access  = true
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
@@ -89,7 +89,7 @@ resource "aws_eks_node_group" "eks-node-group" {
   }
 
   # changed version because of docker-run-time
-  version = "1.23"
+  version = "1.27"
 
   update_config {
     max_unavailable = 1
