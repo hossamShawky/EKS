@@ -28,3 +28,10 @@ module "Security-Group" {
   vpc_id       = module.VPC.vpc_id
   depends_on   = [module.Public-Subnet, module.Private-Subnet]
 }
+# EKS
+module "EKS" {
+  source              = "./eks"
+  private_subnets_ids = module.Private-Subnet.private_subnets_ids
+  eks_sg              = module.Security-Group.eks_SG_id
+  depends_on          = [module.Security-Group]
+}
