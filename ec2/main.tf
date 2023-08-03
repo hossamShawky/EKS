@@ -7,15 +7,15 @@ resource "aws_instance" "EC2-Control" {
   subnet_id                   = var.public_subnets_ids[count.index]
   instance_type               = var.instance_type
   provisioner "local-exec" {
-    command = "echo ${self.public_ip} >> ../ansible/inventory"
+    command = "echo ${self.public_ip} >> ./ansible/inventory"
   }
 
   provisioner "remote-exec" {
     inline = [
       "sudo apt update -y",
-      "sudo apt install kubectl -y",
+      "sudo snap install kubectl --classic ",
       "sudo apt install awscli -y",
-      "cp -r ./scripts/* ~/."
+      "cp -r ./main.tf  ~/newmain.tf"
            ]
   }
   connection {

@@ -18,8 +18,8 @@ module "Private-Subnet" {
   vpc_id             = module.VPC.vpc_id
   availability_zones = var.availability_zones
   private_cidrs      = var.private_cidrs
-  public_subnet = module.Public-Subnet.public_subnets_ids[0]
-  depends_on = [module.VPC, module.Public-Subnet]
+  public_subnet      = module.Public-Subnet.public_subnets_ids[0]
+  depends_on         = [module.VPC, module.Public-Subnet]
 }
 #Security Groups
 module "Security-Group" {
@@ -37,7 +37,7 @@ module "EKS" {
 }
 
 module "Datasource_AMI" {
-  source = "./datasource_ami/"
+  source          = "./datasource_ami/"
   filter_names    = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   filter_virtuals = ["hvm"]
   owners          = ["099720109477"] # Canonical
@@ -45,10 +45,10 @@ module "Datasource_AMI" {
 }
 
 module "EC2-Control" {
-  source                    = "./ec2"
-  ami_id                    = module.Datasource_AMI.ami_id
-  public_subnets_ids        = module.Public-Subnet.public_subnets_ids
-  securit_group_ids         = module.Security-Group.public_SG
-  instance_type             = "t2.micro"
-  depends_on                = [module.Security-Group]
+  source             = "./ec2"
+  ami_id             = module.Datasource_AMI.ami_id
+  public_subnets_ids = module.Public-Subnet.public_subnets_ids
+  securit_group_ids  = module.Security-Group.public_SG
+  instance_type      = "t2.micro"
+  depends_on         = [module.Security-Group]
 }
