@@ -10,8 +10,8 @@ variable "ami_id" {
 variable "securit_group_ids" {
 
 }
- 
- 
+
+
 variable "instance_type" {
 
 }

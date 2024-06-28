@@ -7,11 +7,11 @@ resource "aws_subnet" "Private-Subnet" {
   tags = {
     "Name" = "Private-Subnet ${count.index}"
   }
-} 
+}
 #
 resource "aws_eip" "EIP" {
   domain = "vpc"
-  }
+}
 
 resource "aws_nat_gateway" "NAT" {
   allocation_id = aws_eip.EIP.id

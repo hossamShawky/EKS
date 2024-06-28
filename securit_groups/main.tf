@@ -15,7 +15,7 @@ resource "aws_security_group" "Public-SG" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-   ingress {
+  ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"

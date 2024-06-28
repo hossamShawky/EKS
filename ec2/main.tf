@@ -1,5 +1,5 @@
 resource "aws_instance" "EC2-Control" {
-  count = length(var.public_subnets_ids)
+  count                       = length(var.public_subnets_ids)
   ami                         = var.ami_id
   vpc_security_group_ids      = [var.securit_group_ids]
   key_name                    = var.key_name
@@ -16,7 +16,7 @@ resource "aws_instance" "EC2-Control" {
       "sudo snap install kubectl --classic ",
       "sudo apt install awscli -y",
       "cp -r ./main.tf  ~/newmain.tf"
-           ]
+    ]
   }
   connection {
     type        = "ssh"

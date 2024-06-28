@@ -29,7 +29,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSVPCResourceController" {
 resource "aws_eks_cluster" "eks-cluster" {
   name     = "eks-cluster"
   role_arn = aws_iam_role.eks-role.arn
-  version  = "1.27"
+  version  = "1.29"
   vpc_config {
     subnet_ids              = var.private_subnets_ids
     security_group_ids      = [var.eks_sg]
@@ -89,7 +89,7 @@ resource "aws_eks_node_group" "eks-node-group" {
   }
 
   # changed version because of docker-run-time
-  version = "1.27"
+  version = "1.29"
 
   update_config {
     max_unavailable = 1

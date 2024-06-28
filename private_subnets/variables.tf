@@ -9,9 +9,9 @@ variable "availability_zones" {
 }
 
 variable "destination" {
-  type=string
-  default="0.0.0.0/0"
+  type    = string
+  default = "0.0.0.0/0"
 }
 variable "public_subnet" {
-  type=string
+  type = string
 }
