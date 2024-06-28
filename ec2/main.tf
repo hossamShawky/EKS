@@ -6,6 +6,7 @@ resource "aws_instance" "EC2-Control" {
   associate_public_ip_address = true
   subnet_id                   = var.public_subnets_ids[count.index]
   instance_type               = var.instance_type
+  iam_instance_profile        = aws_iam_instance_profile.profile.name
   provisioner "local-exec" {
     command = "echo ${self.public_ip} >> ./ansible/inventory"
   }
@@ -15,7 +16,7 @@ resource "aws_instance" "EC2-Control" {
       "sudo apt update -y",
       "sudo snap install kubectl --classic ",
       "sudo apt install awscli -y",
-      "cp -r ./main.tf  ~/newmain.tf"
+      # "cp -r ./main.tf  ~/newmain.tf"
     ]
   }
   connection {

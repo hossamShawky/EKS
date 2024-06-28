@@ -5,9 +5,9 @@ resource "aws_subnet" "Public-Subnet" {
   cidr_block        = var.public_cidrs[count.index]
   availability_zone = var.availability_zones[count.index]
   tags = {
-    "Name"                                            = "Public-Subnet ${count.index}"
-    "kubernetes.io/role/elb"                          = "1"
-    "kubernetes.io/cluster/${var.app}-${var.env}-EKS" = "owned"
+    "Name"                      = "Public-Subnet ${count.index}"
+    "kubernetes.io/role/elb"    = "1"
+    "kubernetes.io/cluster/eks" = "owned"
 
   }
 }
