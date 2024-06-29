@@ -1,10 +1,10 @@
 resource "aws_instance" "EC2-Control" {
-  count                       = length(var.public_subnets_ids)
+  # count                       = length(var.public_subnets_ids)
   ami                         = var.ami_id
   vpc_security_group_ids      = [var.securit_group_ids]
   key_name                    = var.key_name
   associate_public_ip_address = true
-  subnet_id                   = var.public_subnets_ids[count.index]
+  subnet_id                   = var.public_subnets_ids #var.public_subnets_ids[count.index]
   instance_type               = var.instance_type
   iam_instance_profile        = aws_iam_instance_profile.profile.name
   provisioner "local-exec" {

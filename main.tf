@@ -47,7 +47,7 @@ module "Datasource_AMI" {
 module "EC2-Control" {
   source             = "./ec2"
   ami_id             = module.Datasource_AMI.ami_id
-  public_subnets_ids = module.Public-Subnet.public_subnets_ids
+  public_subnets_ids = module.Public-Subnet.public_subnets_ids[0]
   securit_group_ids  = module.Security-Group.public_SG
   instance_type      = "t2.micro"
   eks_arn            = module.EKS.eks_arn

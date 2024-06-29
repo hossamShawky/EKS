@@ -1,5 +1,5 @@
 variable "public_subnets_ids" {
-  type = list(string)
+  # type = list(string)
 }
 variable "key_name" {
   default = "mykey"
