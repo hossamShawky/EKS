@@ -2,6 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
+  annotations:
+     service.beta.kubernetes.io/aws-load-balancer-type: "elb"
+     service.beta.kubernetes.io/aws-load-balancer-subnets: "{{ public_subnets | join(',') }}"
 spec:
   selector:
     app: nginx

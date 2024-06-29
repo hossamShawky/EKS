@@ -53,3 +53,19 @@ module "EC2-Control" {
   eks_arn            = module.EKS.eks_arn
   depends_on         = [module.Security-Group, module.EKS]
 }
+
+
+# Null Resource To print public subnets in service.yaml to enable intrent 
+resource "null_resource" "print_public_subnets" {
+
+  provisioner "local-exec" {
+    command = <<EOT
+      rm ./ansible/vars.yaml
+      echo "public_subnets:" > ./ansible/vars.yaml
+      %{for subnet in module.Public-Subnet.public_subnets_ids~}
+      echo "  - ${subnet}" >> ./ansible/vars.yaml
+      %{endfor~}
+    EOT
+  }
+
+}

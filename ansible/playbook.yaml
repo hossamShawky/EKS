@@ -1,12 +1,14 @@
  - name: K8S-PalyBook
    hosts: web
    gather_facts: false 
+   vars_files:
+    - ./vars.yaml
    vars:
     path: "/deployments"
     # copy files 
     files:
     - nginx-deployment.yaml
-    - service.yaml 
+    # - service.yaml 
    tasks:
     
     - name: Make Dir
@@ -21,3 +23,9 @@
        src: "{{item}}"
        dest: "{{ path  }}"
       loop: "{{files}}"
+    
+    - name: cp service with subnets
+      template:
+       src: service.yaml.j2
+       dest: "{{ path  }}/service.yaml"
+        
