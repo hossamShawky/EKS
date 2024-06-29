@@ -69,3 +69,13 @@ resource "null_resource" "print_public_subnets" {
   }
 
 }
+
+## Run Ansible After Provision All Resources
+resource "null_resource" "ansible-playbook" {
+
+  provisioner "local-exec" {
+    command = "/usr/bin/sh ${path.module}/ansible/ansible.sh "
+  }
+}
+
+

@@ -34,4 +34,4 @@ override.tf.json
 terraform.rc
 *.pem
 .terraform.lock.hcl
-.vscode
+*.vscode/*
