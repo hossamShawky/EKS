@@ -80,14 +80,16 @@ resource "aws_eks_node_group" "eks-node-group" {
   node_group_name = "eks-node-group"
   node_role_arn   = aws_iam_role.nodes-iam-role.arn
   subnet_ids      = var.private_subnets_ids
-  instance_types  = ["t2.micro"]
+  instance_types  = ["t2.small"]
 
   scaling_config {
     min_size     = 1
     desired_size = 2
     max_size     = 2
   }
-
+  remote_access {
+    ec2_ssh_key = "mykey"
+  }
   # changed version because of docker-run-time
   version = "1.29"
 
