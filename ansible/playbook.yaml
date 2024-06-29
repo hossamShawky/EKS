@@ -1,0 +1,24 @@
+ - name: K8S-PalyBook
+   hosts: web
+   gather_facts: false 
+   vars:
+    path: "/deployments"
+    # copy files 
+    files:
+    - nginx-deployment.yaml
+    - service.yaml 
+   tasks:
+    
+    - name: Make Dir
+      ansible.builtin.file:
+        path: /deployments
+        state: directory
+        owner: ubuntu
+        group: ubuntu 
+
+    - name: CP K8s Yamls
+      copy:
+       src: "{{item}}"
+       dest: "{{ path  }}"
+      loop: "{{files}}"
+
