@@ -57,7 +57,7 @@ module "EC2-Control" {
 
 # Null Resource To print public subnets in service.yaml to enable intrent 
 resource "null_resource" "print_public_subnets" {
-
+  depends_on = [module.Public-Subnet]
   provisioner "local-exec" {
     command = <<EOT
       rm ./ansible/vars.yaml
@@ -72,7 +72,7 @@ resource "null_resource" "print_public_subnets" {
 
 ## Run Ansible After Provision All Resources
 resource "null_resource" "ansible-playbook" {
-
+  depends_on = [module.EC2-Control]
   provisioner "local-exec" {
     command = "/usr/bin/sh ${path.module}/ansible/ansible.sh "
   }
