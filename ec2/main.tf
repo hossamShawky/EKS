@@ -15,8 +15,11 @@ resource "aws_instance" "EC2-Control" {
     inline = [
       "sudo apt update -y",
       "sudo snap install kubectl --classic ",
-      "sudo apt install awscli -y",
-      # "cp -r ./main.tf  ~/newmain.tf"
+      "curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip ",
+      "sudo apt install unzip",
+      "sudo unzip awscliv2.zip",
+      "sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update",
+      "aws sts get-caller-identity >> /tmp/check "
     ]
   }
   connection {
