@@ -8,6 +8,7 @@
     # copy files 
     files:
     - nginx-deployment.yaml
+    - mykey.pem
     # - service.yaml 
    tasks:
     
@@ -28,4 +29,6 @@
       template:
        src: service.yaml.j2
        dest: "{{ path  }}/service.yaml"
-        
+
+    - name: chmod ssh key
+      command: "chmod 400 /deployments/mykey.pem"
